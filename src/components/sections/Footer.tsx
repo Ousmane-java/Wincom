@@ -78,10 +78,19 @@ export function Footer() {
         </div>
 
         {/* Signature géante */}
-        <div className="mt-24 flex items-end gap-4 border-t border-ink/10 pt-10 md:mt-32">
-          <LogoMark className="mb-[1.5vw] h-[13vw] w-auto max-h-48 shrink-0" strokeWidth={1.8} />
-          <span className="font-display text-[21vw] leading-[0.75] tracking-[-0.045em] lg:text-[19.5rem]">
-            Win<span className="text-ink/25">com</span>
+        {/* Le « W » du logo devient la première lettre du mot : W + incom */}
+        <div className="mt-24 border-t border-ink/10 pt-10 md:mt-32">
+          <span
+            className="font-display block whitespace-nowrap text-[23vw] leading-[0.8] tracking-[-0.045em] lg:text-[21rem]"
+            aria-label="Wincom"
+          >
+            <LogoMark
+              className="mr-[-0.05em] inline-block h-[0.93em] w-auto align-[-0.04em]"
+              strokeWidth={2.4}
+            />
+            <span aria-hidden>
+              in<span className="text-ink/25">com</span>
+            </span>
           </span>
         </div>
 
