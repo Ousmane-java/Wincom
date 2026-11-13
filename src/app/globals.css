@@ -1,26 +1,178 @@
 @import "tailwindcss";
 
+/* ───────────────────────── Design tokens Wincom ───────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink: #0a0a0a;          /* noir profond */
+  --graphite: #141414;     /* surfaces / fenêtres */
+  --graphite-2: #1c1c1c;
+  --ivory: #f5f3ee;        /* blanc cassé */
+  --ivory-2: #ebe8e0;
+  --stone: #8a8780;        /* texte secondaire */
+  --line: rgba(245, 243, 238, 0.1);
+  --line-dark: rgba(10, 10, 10, 0.12);
+  --champagne: #c9a96e;    /* accent rare */
+  --champagne-soft: #e3cfa6;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/*
+ * Mode clair : on inverse le système plutôt que de créer un autre site.
+ * Le noir devient papier ivoire, les sections ivoire deviennent noires,
+ * le champagne se fonce légèrement pour garder son contraste.
+ * (Tailwind v4 calcule border-white/10, bg-white/5… depuis --color-white :
+ *  on le fait pointer vers l'encre pour que toutes les lignes fines suivent.)
+ */
+html[data-theme="light"] {
+  --ink: #f4f1ea;
+  --graphite: #fbfaf6;
+  --graphite-2: #ffffff;
+  --ivory: #111111;
+  --ivory-2: #1c1c1c;
+  --stone: #6e6a63;
+  --champagne: #a8864a;
+  --champagne-soft: #8f7038;
+  --color-white: #111111;
+  color-scheme: light;
+}
+
+/* Transition de thème : un cercle qui s'ouvre depuis le bouton */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: var(--ink);
+  --color-graphite: var(--graphite);
+  --color-graphite-2: var(--graphite-2);
+  --color-ivory: var(--ivory);
+  --color-ivory-2: var(--ivory-2);
+  --color-stone: var(--stone);
+  --color-champagne: var(--champagne);
+  --color-champagne-soft: var(--champagne-soft);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-serif-display);
+  --ease-out-expo: var(--ease-out);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--ink);
+  color-scheme: dark;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--ink);
+  color: var(--ivory);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--champagne);
+  color: var(--ink);
+}
+
+/* Grain « papier de luxe » sur tout le site */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 8s steps(10) infinite;
+}
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  30% { transform: translate(3%, -15%); }
+  50% { transform: translate(12%, 9%); }
+  70% { transform: translate(9%, 4%); }
+  90% { transform: translate(-1%, 7%); }
+}
+
+@layer components {
+/* Typo utilitaires */
+.font-display {
+  font-family: var(--font-serif-display), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+.eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+/* Fenêtre Wincom : bordure 1px qui s'illumine */
+.win-border {
+  position: relative;
+  isolation: isolate;
+}
+.win-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    140deg,
+    rgba(201, 169, 110, 0.55),
+    rgba(245, 243, 238, 0.08) 35%,
+    rgba(245, 243, 238, 0.04) 65%,
+    rgba(201, 169, 110, 0.3)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Masque de révélation de lignes */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+}
+
+/* Défilement infini */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 38s linear infinite;
+}
+
+/* Curseur natif masqué uniquement quand le curseur custom est actif */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain,
+  .marquee-track {
+    animation: none;
+  }
 }
