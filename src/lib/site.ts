@@ -69,9 +69,9 @@ export const team: TeamPole[] = [
   },
   {
     id: "dev",
-    title: "Développement web",
-    text: "Des sites et plateformes rapides, modernes, pensés d'abord pour le mobile.",
-    points: ["Sites vitrines & e-commerce", "Plateformes & applications web", "Paiement en ligne & intégrations"],
+    title: "Développement web & mobile",
+    text: "Des sites, plateformes et applications mobiles rapides, modernes et sécurisés.",
+    points: ["Sites vitrines & e-commerce", "Applications web & mobiles (iOS, Android)", "Paiement en ligne & intégrations"],
     icon: "dev",
   },
   {
