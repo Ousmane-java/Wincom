@@ -10,13 +10,12 @@ export const site = {
   tagline: ["Un site, c'est bien.", "Des clients, c'est mieux."],
   description:
     "Wincom accompagne entrepreneurs et entreprises dans la création de sites professionnels et sécurisés, et dans la stratégie marketing qui leur amène des clients.",
-  url: "https://wincom-consulting.com", // TODO : remplacer par le vrai domaine
+  url: "https://wincomconsulting.com",
   responseTime: "24 h",
 };
 
 export const contact = {
-  // TODO : remplacer par l'email pro définitif (ex. contact@ton-domaine.com)
-  email: "contact@ousmanedrame.com",
+  email: "contact@wincomconsulting.com",
   whatsapp: "33613452016",
   whatsappMessage:
     "Bonjour Wincom, je souhaite échanger avec vous sur mon projet.",
