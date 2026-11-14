@@ -33,7 +33,6 @@ export const founder = {
   role: "Fondateur · Direction technique",
   title: "Ingénieur systèmes, réseaux & cybersécurité",
   studies: ["Cybersécurité", "Cloud", "Systèmes & réseaux"],
-  linkedin: "https://www.linkedin.com/in/ousmane-drame-83858a334/",
 };
 
 export type TeamPole = {

@@ -1,6 +1,6 @@
 "use client";
 
-import { contact, founder, mailLink, nav, site, whatsappLink } from "@/lib/site";
+import { contact, mailLink, nav, site, whatsappLink } from "@/lib/site";
 import { realHref, useGoTo } from "@/lib/useGoTo";
 import { useContact } from "../contact/ContactProvider";
 import { LogoMark } from "../Logo";
@@ -69,9 +69,6 @@ export function Footer() {
                     </a>
                   </li>
                 ))}
-                <li>
-                  <a href={founder.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-[#a8864a]">LinkedIn</a>
-                </li>
               </ul>
             </div>
           </div>
